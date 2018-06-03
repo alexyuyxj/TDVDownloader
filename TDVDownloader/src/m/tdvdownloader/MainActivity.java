@@ -5,6 +5,7 @@ import android.app.DownloadManager;
 import android.app.DownloadManager.Request;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
@@ -13,7 +14,7 @@ import com.mob.MobSDK;
 import com.mob.tools.MobHandlerThread;
 import com.mob.tools.utils.SharePrefrenceHelper;
 
-import java.net.URL;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -59,7 +60,7 @@ public class MainActivity extends Activity implements Callback, PlatformActionLi
 					noNews = true;
 				} else {
 					if (firstPage) {
-						sp.putString("last_id", id);
+//						sp.putString("last_id", id);
 						firstPage = false;
 					}
 					String videoId = url[1];
@@ -100,12 +101,28 @@ public class MainActivity extends Activity implements Callback, PlatformActionLi
 	
 	}
 	
+	boolean ss;
 	private void download(String url) {
+		if (ss) {
+			return;
+		}
+		
+		ss = true;
 		Uri uri = Uri.parse(url);
 		Request request = new Request(uri);
 		request.setAllowedNetworkTypes(Request.NETWORK_WIFI);
+		File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "tumblr");
+		File downloadTo = new File(dir, uri.getPath());
+		if (!downloadTo.getParentFile().exists()) {
+			downloadTo.getParentFile().mkdirs();
+		}
+		request.setDestinationUri(Uri.fromFile(downloadTo));
 		DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
 		dm.enqueue(request);
 	}
 	
+	protected void onDestroy() {
+		super.onDestroy();
+		System.exit(0);
+	}
 }
