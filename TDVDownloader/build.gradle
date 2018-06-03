@@ -1,0 +1,18 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.mob.eclipsemodule'
+apply plugin: 'com.mob.sdk'
+
+MobSDK {
+	appKey "d580ad56b4b5"
+	appSecret "7fcae59a62342e7e2759e9e397c82bdd"
+
+	ShareSDK {
+		devInfo {
+			Tumblr {
+				appKey "2QUXqO9fcgGdtGG1FcvML6ZunIQzAEL8xY6hIaxdJnDti2DYwM"
+				appSecret "3Rt0sPFj7u2g39mEVB3IBpOzKnM3JnTtxX2bao2JKk4VV1gtNo"
+				callbackUri "http://www.sharesdk.cn"
+			}
+		}
+	}
+}

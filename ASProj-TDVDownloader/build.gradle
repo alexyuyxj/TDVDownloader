@@ -1,0 +1,20 @@
+buildscript {
+	repositories {
+		jcenter()
+		google()
+	}
+
+    dependencies {
+		classpath 'com.android.tools.build:gradle:3.1.2'
+		classpath 'com.mob.eclipsemodule:EclipseModule:+'
+		classpath 'com.mob.sdk:MobSDK:2018.0319.1724'
+    }
+}
+
+allprojects {
+
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,3 @@
+include ':TDVDownloader'
+project(':TDVDownloader').projectDir = new File('../TDVDownloader')
+
