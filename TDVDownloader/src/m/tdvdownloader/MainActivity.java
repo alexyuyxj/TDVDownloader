@@ -60,7 +60,7 @@ public class MainActivity extends Activity implements Callback, PlatformActionLi
 					noNews = true;
 				} else {
 					if (firstPage) {
-//						sp.putString("last_id", id);
+						sp.putString("last_id", id);
 						firstPage = false;
 					}
 					String videoId = url[1];
@@ -70,7 +70,13 @@ public class MainActivity extends Activity implements Callback, PlatformActionLi
 			}
 		}
 		
-		if (!noNews) {
+		if (noNews) {
+			runOnUiThread(new Runnable() {
+				public void run() {
+					finish();
+				}
+			});
+		} else {
 			offset += urls.size();
 			values.put("offset", offset);
 			tumblr.setPlatformActionListener(MainActivity.this);
@@ -101,13 +107,7 @@ public class MainActivity extends Activity implements Callback, PlatformActionLi
 	
 	}
 	
-	boolean ss;
 	private void download(String url) {
-		if (ss) {
-			return;
-		}
-		
-		ss = true;
 		Uri uri = Uri.parse(url);
 		Request request = new Request(uri);
 		request.setAllowedNetworkTypes(Request.NETWORK_WIFI);
